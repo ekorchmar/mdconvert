@@ -1,6 +1,15 @@
-const showdown = require('showdown'),
-      fs = require('fs');
-const converter = new showdown.Converter();
+import { Converter } from 'showdown';
+import { readFileSync, writeFile } from 'fs';
+const converter = new Converter({
+  tables: true,
+  ghCompatibleHeaderId: true,
+  parseImgDimensions: true,
+  strikethrough: true,
+  literalMidWordUnderscores: true,
+  tasklists: true,
+  disableForced4SpacesIndentedSublists: true,
+  requireSpaceBeforeHeadingText: true,
+});
 let html;
 
 // Read args
@@ -21,14 +30,14 @@ if (markdownFile === htmlFile) {
 console.debug('output: ' + htmlFile);
 
 try {
-  const data = fs.readFileSync(markdownFile, 'utf8');
+  const data = readFileSync(markdownFile, 'utf8');
   html = converter.makeHtml(data);
 } catch (err) {
   console.error(err);
   process.exit(1);
 }
 
-fs.writeFile(htmlFile, html, (err) => {
+writeFile(htmlFile, html, (err) => {
   if (err) {
     console.error(err);
     process.exit(1);
