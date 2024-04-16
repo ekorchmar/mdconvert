@@ -1,0 +1,15 @@
+{
+  "name": "mdconvert",
+  "version": "1.0.0",
+  "description": "Converts markdown to html using showdown",
+  "main": "mdconvert.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node mdconvert.js test.md",
+  },
+  "author": "Eduard Korchmar",
+  "license": "MIT",
+  "dependencies": {
+    "showdown": "^2.1.0"
+  }
+}
