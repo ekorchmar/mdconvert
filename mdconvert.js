@@ -1,6 +1,7 @@
-import { Converter } from 'showdown';
-import { readFileSync, writeFile } from 'fs';
-const converter = new Converter({
+const showdown = require('showdown'),
+      fs = require('fs');
+
+const converter = new showdown.Converter({
   tables: true,
   ghCompatibleHeaderId: true,
   parseImgDimensions: true,
@@ -30,14 +31,14 @@ if (markdownFile === htmlFile) {
 console.debug('output: ' + htmlFile);
 
 try {
-  const data = readFileSync(markdownFile, 'utf8');
+  const data = fs.readFileSync(markdownFile, 'utf8');
   html = converter.makeHtml(data);
 } catch (err) {
   console.error(err);
   process.exit(1);
 }
 
-writeFile(htmlFile, html, (err) => {
+fs.writeFile(htmlFile, html, (err) => {
   if (err) {
     console.error(err);
     process.exit(1);
